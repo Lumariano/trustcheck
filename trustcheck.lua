@@ -23,6 +23,16 @@ local ignored_spell_ids = T{
     1008,   -- Naja (UC)
 };
 
+local unshortened_spell_names = T{
+    [934] = 'Domina Shantotto',
+    [958] = 'Babban Mheillea',
+    [992] = 'Ark Angel HM',
+    [993] = 'Ark Angel EV',
+    [994] = 'Ark Angel MR',
+    [995] = 'Ark Angel TT',
+    [996] = 'Ark Angel GK',
+};
+
 ashita.events.register('command', 'command_cb', function (e)
     if (e.command ~= '/trustcheck') then
         return;
@@ -32,7 +42,7 @@ ashita.events.register('command', 'command_cb', function (e)
 
     local file = ('%s\\addons\\' .. addon.name .. '\\trusts.txt'):fmt(AshitaCore:GetInstallPath());
     local f = io.open(file, 'w+');
-    if(f == nil) then
+    if (f == nil) then
         print(chat.header(addon.name):append(chat.error('Could not write to file ' .. file)));
         return;
     end
@@ -44,11 +54,18 @@ ashita.events.register('command', 'command_cb', function (e)
     for i = 896, 1019 do
         if (not ignored_spell_ids:contains(i)) then
             local spell = AshitaCore:GetResourceManager():GetSpellById(i);
+
             if (spell.Name[1] ~= '') then
-                f:write(string.format('| %s = ', spell.Name[1]));
+                if (unshortened_spell_names:containskey(i)) then
+                    f:write(('| %s = '):fmt(unshortened_spell_names[i]));
+                else
+                    f:write(('| %s = '):fmt(spell.Name[1]));
+                end
+
                 if (AshitaCore:GetMemoryManager():GetPlayer():HasSpell(i)) then
                     f:write('Complete');
                 end
+
                 f:write('\n');
             end
         end
