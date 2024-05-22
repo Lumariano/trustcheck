@@ -40,7 +40,7 @@ ashita.events.register('command', 'command_cb', function (e)
 
     e.blocked = true;
 
-    local file = ('%s\\addons\\' .. addon.name .. '\\trusts.txt'):fmt(AshitaCore:GetInstallPath());
+    local file = ('%s\\addons\\' .. addon.name .. '\\%s_trusts.txt'):fmt(AshitaCore:GetInstallPath(), AshitaCore:GetMemoryManager():GetParty():GetMemberName(0)); 
     local f = io.open(file, 'w+');
     if (f == nil) then
         print(chat.header(addon.name):append(chat.error('Could not write to file ' .. file)));
