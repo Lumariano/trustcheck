@@ -42,8 +42,8 @@ local function print_help(is_error) then
 
     local cmds = T{
         { '/trustcheck help', 'Displays the addons help information.' },
-        { '/trustcheck bg', 'Writes trusts to a file in the form of a bg-wiki.com user page template.'},
-        { '/trustcheck csv', 'Writes trusts to a .csv file.'},
+        { '/trustcheck bg', 'Writes trusts to a file in the form of a bg-wiki.com user page template.' },
+        { '/trustcheck csv', 'Writes trusts to a .csv file.' },
     };
 
     cmds:ieach(function (v)
@@ -60,7 +60,7 @@ ashita.events.register('command', 'command_cb', function (e)
 
     e.blocked = true;
 
-    if(#args == 2 and args[2] == 'help') then
+    if (#args == 2 and args[2] == 'help') then
         print_help(false);
         return;
     end
