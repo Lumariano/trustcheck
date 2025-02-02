@@ -33,7 +33,7 @@ local unshortened_spell_names = T{
     [996] = 'Ark Angel GK',
 };
 
-local function print_help(is_error) then
+local function print_help(is_error)
     if (is_error) then
         print(chat.header(addon.name):append(chat.error('Invalid command syntax for command: ')):append(chat.success('/' .. addon.name)));
     else
